@@ -2,7 +2,8 @@
  * Nvim extension - open nvim, using the git changed files picker when there are changes.
  *
  * Suspends pi's TUI, gives nvim full terminal control, restores pi when nvim exits,
- * and if pi-review exported comments for this session, prepares them in pi's input editor.
+ * and if agent-review.nvim exported comments for this session, prepares them in pi's
+ * input editor.
  */
 
 import { mkdtempSync, readFileSync, rmSync, existsSync } from "node:fs";
@@ -49,7 +50,7 @@ type ExportPayload = {
   text?: string;
 };
 
-function readPiReviewExport(exportPath: string, token: string): string | undefined {
+function readAgentReviewExport(exportPath: string, token: string): string | undefined {
   if (!existsSync(exportPath)) {
     return undefined;
   }
@@ -85,7 +86,7 @@ function runNvim(ctx: {
       tui.stop();
       process.stdout.write("\x1b[2J\x1b[H");
 
-      const sessionDir = mkdtempSync(join(tmpdir(), "pi-review-"));
+      const sessionDir = mkdtempSync(join(tmpdir(), "agent-review-"));
       const exportPath = join(sessionDir, "export.json");
       const exportToken = randomUUID();
 
@@ -101,14 +102,14 @@ function runNvim(ctx: {
           cwd: ctx.cwd,
           env: {
             ...process.env,
-            PI_REVIEW_EXPORT_PATH: exportPath,
-            PI_REVIEW_EXPORT_TOKEN: exportToken,
-            PI_REVIEW_EXPORT_ROOT: ctx.cwd,
+            AGENT_REVIEW_EXPORT_PATH: exportPath,
+            AGENT_REVIEW_EXPORT_TOKEN: exportToken,
+            AGENT_REVIEW_EXPORT_ROOT: ctx.cwd,
           },
         });
 
         resultStatus = result.status;
-        exportedText = readPiReviewExport(exportPath, exportToken);
+        exportedText = readAgentReviewExport(exportPath, exportToken);
       } finally {
         rmSync(sessionDir, { recursive: true, force: true });
       }
@@ -119,7 +120,7 @@ function runNvim(ctx: {
       if (exportedText) {
         setTimeout(() => {
           ctx.ui.setEditorText(exportedText);
-          ctx.ui.notify("Loaded pi-review comments into the input editor", "info");
+          ctx.ui.notify("Loaded agent-review comments into the input editor", "info");
           tui.requestRender(true);
         }, 0);
       } else {
