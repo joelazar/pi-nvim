@@ -1,0 +1,49 @@
+{
+  "name": "pi-nvim",
+  "version": "1.0.0",
+  "description": "Open Neovim from pi — suspends the TUI, drops you into nvim (with the snacks.nvim git_status picker on dirty repos), then restores pi when you exit. Optional pi-review handoff loads exported notes into the prompt editor.",
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-extension",
+    "pi-coding-agent",
+    "neovim",
+    "nvim",
+    "snacks",
+    "editor"
+  ],
+  "license": "MIT",
+  "author": "Jozsef Lazar",
+  "homepage": "https://github.com/joelazar/pi-nvim#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joelazar/pi-nvim.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joelazar/pi-nvim/issues"
+  },
+  "files": [
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "*",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  },
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
