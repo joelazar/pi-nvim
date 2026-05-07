@@ -34,10 +34,10 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@mariozechner/pi-coding-agent": ">=0.67.6"
+    "@earendil-works/pi-coding-agent": ">=0.74.0"
   },
   "devDependencies": {
-    "@mariozechner/pi-coding-agent": "^0.67.6",
+    "@earendil-works/pi-coding-agent": "^0.74.0",
     "@types/node": "^22.0.0",
     "typescript": "^5.6.0"
   },

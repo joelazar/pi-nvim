@@ -1,6 +1,6 @@
 # pi-nvim
 
-A [pi](https://github.com/badlogic/pi-mono) extension for opening [Neovim](https://neovim.io/) from inside pi. Pi's TUI suspends, nvim takes over the terminal, and pi comes back when nvim exits. In a git repo with uncommitted changes, it opens the [snacks.nvim](https://github.com/folke/snacks.nvim) `git_status` picker directly, so you land on a changed file instead of the dashboard.
+A [pi](https://github.com/earendil-works/pi-mono) extension for opening [Neovim](https://neovim.io/) from inside pi. Pi's TUI suspends, nvim takes over the terminal, and pi comes back when nvim exits. In a git repo with uncommitted changes, it opens the [snacks.nvim](https://github.com/folke/snacks.nvim) `git_status` picker directly, so you land on a changed file instead of the dashboard.
 
 There's also an optional bridge for sending text back the other way: if your nvim setup writes a JSON payload to the path pi-nvim passes in, the `text` field ends up in pi's prompt editor when nvim exits. Pairs well with [agent-review.nvim](https://github.com/joelazar/agent-review.nvim), which speaks this protocol out of the box and lets you leave line/range/file comments in nvim and send them back as a prompt.
 
@@ -13,7 +13,7 @@ There's also an optional bridge for sending text back the other way: if your nvi
 
 ## Requirements
 
-- [pi](https://github.com/badlogic/pi-mono)
+- [pi](https://github.com/earendil-works/pi-mono)
 - [neovim](https://neovim.io/) on `PATH`
 - [snacks.nvim](https://github.com/folke/snacks.nvim), only if you want the auto git picker. Without it, nvim still opens on dirty repos; you just get a harmless error from the unknown lua call.
 - [agent-review.nvim](https://github.com/joelazar/agent-review.nvim), optional, for the review-notes-to-prompt bridge.
