@@ -1,7 +1,7 @@
 {
   "name": "pi-nvim",
   "version": "1.0.0",
-  "description": "Open Neovim from pi — suspends the TUI, drops you into nvim (with the snacks.nvim git_status picker on dirty repos), then restores pi when you exit. Optional agent-review.nvim handoff loads exported notes into the prompt editor.",
+  "description": "Open Neovim from pi. Suspends the TUI, drops you into nvim (with the snacks.nvim git_status picker on dirty repos), then restores pi when you exit.",
   "type": "module",
   "main": "./index.ts",
   "types": "./index.ts",
@@ -34,12 +34,12 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@earendil-works/pi-coding-agent": ">=0.74.0"
+    "@earendil-works/pi-coding-agent": "*"
   },
   "devDependencies": {
-    "@earendil-works/pi-coding-agent": "^0.74.0",
-    "@types/node": "^22.0.0",
-    "typescript": "^5.6.0"
+    "@earendil-works/pi-coding-agent": "^0.87.1",
+    "@types/node": "^26.6.2",
+    "typescript": "^7.0.2"
   },
   "pi": {
     "extensions": [
