@@ -28,17 +28,49 @@ function shouldOpenGitPicker(cwd: string): boolean {
   return status.status === 0 && status.stdout.trim().length > 0;
 }
 
+function nvimArgs(cwd: string): string[] {
+  return shouldOpenGitPicker(cwd) ? ["-c", "lua Snacks.picker.git_status()"] : [];
+}
+
+function openRexLayer(ctx: ExtensionContext): string | null {
+  const layer = {
+    bounds: [0, 0, 1, 1],
+    focus: true,
+    layout: {
+      block: {
+        flavor: "com.superlogical.terminal.shell",
+        label: "nvim",
+        options: { command: ["nvim", ...nvimArgs(ctx.cwd)], cwd: ctx.cwd },
+      },
+    },
+  };
+  const result = spawnSync(
+    "rex",
+    ["api", "call", "-s", process.env.REX_SESSION!, "session.new_layer", JSON.stringify(layer)],
+    { encoding: "utf8" },
+  );
+  if (result.error) return result.error.message;
+  if (result.status !== 0) return result.stderr.trim() || `exit ${result.status}`;
+  return null;
+}
+
 async function runNvim(ctx: ExtensionContext): Promise<void> {
   if (!ctx.hasUI) {
     ctx.ui.notify("Requires interactive mode", "error");
     return;
   }
 
+  if (process.env.REX_SESSION) {
+    const error = openRexLayer(ctx);
+    if (!error) return;
+    ctx.ui.notify(`Rex layer failed, running inline: ${error}`, "warning");
+  }
+
   await ctx.ui.custom<number | null>((tui, _theme, _kb, done) => {
     tui.stop();
     process.stdout.write("\x1b[2J\x1b[H");
 
-    const args = shouldOpenGitPicker(ctx.cwd) ? ["-c", "lua Snacks.picker.git_status()"] : [];
+    const args = nvimArgs(ctx.cwd);
     const result = spawnSync("nvim", args, { stdio: "inherit", cwd: ctx.cwd });
 
     tui.start();

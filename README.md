@@ -63,6 +63,10 @@ The extension uses pi's `ui.custom` overlay to take over the screen:
     → tui.requestRender(true)
 ```
 
+## Rex
+
+Inside a [Rex](https://www.superlogical.com/rex) terminal (`REX_SESSION` set), nvim opens in a full-window floating layer over pi's tab, and pi keeps running underneath. Quitting nvim closes the layer. Your splits are never touched. If the layer can't open, it falls back to the inline mode.
+
 ## Development
 
 ```bash
